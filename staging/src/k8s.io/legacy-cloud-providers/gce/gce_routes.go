@@ -47,7 +47,8 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 	f := filter.Regexp("name", prefix+"-.*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
 	logrus.Infof("melsayed--------------ListRoutes: %+v", f)
 	routes, err := g.c.Routes().List(ctx, f)
-	routes2, _ := g.c.Routes().List(ctx, filter.None)
+	f2 := filter.Regexp("name", prefix+"-.*")
+	routes2, _ := g.c.Routes().List(ctx, f2)
 	logrus.Infof("melsayed--------------ListRoutes: %+v", routes2)
 
 	if err != nil {
