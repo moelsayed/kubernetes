@@ -29,6 +29,7 @@ import (
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud"
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud/filter"
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud/meta"
+	"github.com/sirupsen/logrus"
 	cloudprovider "k8s.io/cloud-provider"
 )
 
@@ -44,7 +45,10 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 	mc := newRoutesMetricContext("list")
 	prefix := truncateClusterName(clusterName)
 	f := filter.Regexp("name", prefix+"-.*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
+	logrus.Infof("melsayed--------------ListRoutes: %+v", f)
 	routes, err := g.c.Routes().List(ctx, f)
+	logrus.Infof("melsayed--------------ListRoutes: %+v", routes)
+
 	if err != nil {
 		return nil, mc.Observe(err)
 	}

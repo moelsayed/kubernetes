@@ -31,6 +31,7 @@ import (
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud/filter"
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud/meta"
 
+	"github.com/sirupsen/logrus"
 	alpha "google.golang.org/api/compute/v0.alpha"
 	beta "google.golang.org/api/compute/v0.beta"
 	ga "google.golang.org/api/compute/v1"
@@ -12223,6 +12224,8 @@ func (g *GCERoutes) Get(ctx context.Context, key *meta.Key) (*ga.Route, error) {
 // List all Route objects.
 func (g *GCERoutes) List(ctx context.Context, fl *filter.F) ([]*ga.Route, error) {
 	klog.V(5).Infof("GCERoutes.List(%v, %v) called", ctx, fl)
+	logrus.Infof("melsayed--------------GCERoutes.List(%v, %v) called", ctx, fl)
+
 	projectID := g.s.ProjectRouter.ProjectID(ctx, "ga", "Routes")
 	rk := &RateLimitKey{
 		ProjectID: projectID,
@@ -12258,7 +12261,12 @@ func (g *GCERoutes) List(ctx context.Context, fl *filter.F) ([]*ga.Route, error)
 		}
 		klog.V(5).Infof("GCERoutes.List(%v, ..., %v) = %v, %v", ctx, fl, asStr, nil)
 	}
-
+	var asStr []string
+	for _, o := range all {
+		asStr = append(asStr, fmt.Sprintf("%+v", o))
+	}
+	klog.V(5).Infof("GCERoutes.List(%v, ..., %v) = %v, %v", ctx, fl, asStr, nil)
+	logrus.Infof("melsayed--------------GCERoutes.List(%v, ..., %v) = %v", ctx, fl, asStr)
 	return all, nil
 }
 
