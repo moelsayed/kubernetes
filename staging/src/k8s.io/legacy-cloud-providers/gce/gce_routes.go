@@ -44,7 +44,7 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 
 	mc := newRoutesMetricContext("list")
 	prefix := truncateClusterName(clusterName)
-	f := filter.Regexp("name", prefix+"-.*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
+	f := filter.Regexp("name", prefix+"-*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
 	logrus.Infof("melsayed--------------ListRoutes: %+v", f)
 	routes, err := g.c.Routes().List(ctx, f)
 	logrus.Infof("melsayed--------------ListRoutes: %+v", routes)
