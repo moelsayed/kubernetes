@@ -50,7 +50,7 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 	f2 := filter.Regexp("name", prefix+"-.*")
 	routes2, _ := g.c.Routes().List(ctx, f2)
 	logrus.Infof("melsayed--------------ListRoutes: %+v %+v", f2, routes2)
-	logrus.Infof("melsayed--------------Route: %+v %+v", f2, routes2[0].Network)
+	logrus.Infof("melsayed--------------Network: %+v", g.NetworkURL())
 
 	if err != nil {
 		return nil, mc.Observe(err)
