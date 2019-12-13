@@ -38,6 +38,7 @@ import (
 	container "google.golang.org/api/container/v1"
 
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud"
+	"github.com/sirupsen/logrus"
 
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -352,7 +353,7 @@ func generateCloudConfig(configFile *ConfigFile) (cloudConfig *CloudConfig, err 
 			return nil, err
 		}
 	}
-
+	logrus.Infof("melsayed----------------------shitfuck %+v", cloudConfig)
 	// Determine if subnetwork parameter is URL or Name
 	// If cluster is on a GCP network of mode=custom, then `SubnetName` must be specified in config file.
 	if configFile != nil && configFile.Global.SubnetworkName != "" {
