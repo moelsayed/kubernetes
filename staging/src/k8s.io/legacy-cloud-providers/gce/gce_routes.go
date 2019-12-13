@@ -46,7 +46,7 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 	prefix := truncateClusterName(clusterName)
 	f := filter.Regexp("name", prefix+"-.*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
 	routes, err := g.c.Routes().List(ctx, f)
-	f2 := filter.Regexp("network", "global/networks/default")
+	f2 := filter.Regexp("network", "https://www.googleapis.com/compute/v1/projects/kubermatic-dev/global/networks/default")
 	routes2, _ := g.c.Routes().List(ctx, f2)
 	logrus.Infof("melsayed------1--------ListRoutes: %+v %+v", f2, routes2)
 	logrus.Infof("melsayed------2--------Network: %+v", g.NetworkURL())
