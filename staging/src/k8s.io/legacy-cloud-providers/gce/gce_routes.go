@@ -45,13 +45,11 @@ func (g *Cloud) ListRoutes(ctx context.Context, clusterName string) ([]*cloudpro
 	mc := newRoutesMetricContext("list")
 	prefix := truncateClusterName(clusterName)
 	f := filter.Regexp("name", prefix+"-.*").AndRegexp("network", g.NetworkURL()).AndRegexp("description", k8sNodeRouteTag)
-	logrus.Infof("melsayed--------------ListRoutes: %+v", f)
 	routes, err := g.c.Routes().List(ctx, f)
 	f2 := filter.Regexp("network", "global/networks/default")
 	routes2, _ := g.c.Routes().List(ctx, f2)
-	logrus.Infof("melsayed--------------ListRoutes: %+v %+v", f2, routes2)
-	// network := getNetwork(g.s, g.NetworkProjectID(), )
-	logrus.Infof("melsayed--------------Network: %+v", g.NetworkURL())
+	logrus.Infof("melsayed------1--------ListRoutes: %+v %+v", f2, routes2)
+	logrus.Infof("melsayed------2--------Network: %+v", g.NetworkURL())
 
 	if err != nil {
 		return nil, mc.Observe(err)
